@@ -1,3 +1,8 @@
 p,h1 {
      font-family: "Menomonia";
 }
+
+p {
+     margin-top: 15pt;
+     margin-left:60pt;
+}

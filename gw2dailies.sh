@@ -39,14 +39,14 @@ cat $TMPID | while read id; do
 	
 	# Ausgabe
 	echo "<img src=\"$icon\" alt=\"icon\" align=left>"
-	echo "<p>$name<br>"
+	echo "<p><tab indent=20>$name<br>"
 	if [ -n "$descr" ]
 	then
-		echo "$descr<br>"
+		echo "   $descr<br>"
 	else
 		echo "-<br>"
 	fi
-	echo "$req<br></p>"
+	echo "   $req<br></p>"
 	echo -e "\n"
 #	echo "<p>------------------------------------</p>"
 done
