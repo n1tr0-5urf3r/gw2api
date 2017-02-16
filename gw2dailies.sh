@@ -30,33 +30,42 @@ cat $TMPID | while read id; do
 	name=$(grep "name" $TMPINFO | sed 's/^.*"name": "//g' | sed 's/",//g')
 	descr=$(grep "description" $TMPINFO | sed 's/^.*"description": "//g' | sed 's/",//g')
 	req=$(grep "requirement" $TMPINFO | sed 's/^.*"requirement": "//g' | sed 's/",//g')
+	icon=$(grep "icon" $TMPINFO | sed 's/^.*"icon": "//g' | sed 's/",//g')
+
+	if [ -z "$icon" ]
+	then
+		icon=https://wiki.guildwars2.com/images/1/14/Daily_Achievement.png
+	fi	
 	
-		
 	# Ausgabe
-	#echo "-----------------------"
+	echo "<img src=\"$icon\" alt=\"icon\" align=left>"
 	echo "<p>$name<br>"
 	if [ -n "$descr" ]
 	then
 		echo "$descr<br>"
+	else
+		echo "-<br>"
 	fi
 	echo "$req<br></p>"
 	echo -e "\n"
-	echo "<p>-----------------------</p>"
+#	echo "<p>------------------------------------</p>"
 done
 }
 
 # Here happens the magic
 cp $DIR/html_template.html /var/www/html/gw2/dailies.html
-
-echo "<b>PvE:</b>"
+echo "<div id="pve"><h1>PvE:</h1>"
 getID $TMPPVE
 getInfo
-echo "<b>PvP:</b>"
+echo "</div>"
+echo "<div id="pvp"><h1>PvP:</h1>"
 getID $TMPPVP
 getInfo
-echo "<b>WvW:</b>"
+echo "</div>"
+echo "<div id="wvw"><h1>WvW:</h1>"
 getID $TMPWVW
 getInfo
+echo "</div>"
 
 # Clean up temporary files
 rm -f $DIR/*.tmp
