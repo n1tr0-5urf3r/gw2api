@@ -13,6 +13,7 @@ TMPPVP=$DIR/pvp.tmp
 TMPWVW=$DIR/wvw.tmp
 TMPID=$DIR/ids.tmp
 TMPINFO=$DIR/info.tmp
+today=$(date +%d.%m.%Y)
 
 # Get Daily IDs
 curl -s https://api.guildwars2.com/v2/achievements/daily | jq .pve > $TMPPVE
@@ -39,14 +40,19 @@ cat $TMPID | while read id; do
 	
 	# Ausgabe
 	echo "<img src=\"$icon\" alt=\"icon\" align=left>"
-	echo "<p><tab indent=20>$name<br>"
+	echo "<div id=\"name\">"
+	echo "<p>$name<br></p>"
+	echo "</div>"
+	echo "<div id=\"description\">"
+	echo "<p>"
 	if [ -n "$descr" ]
 	then
-		echo "   $descr<br>"
+		echo "$descr<br>"
 	else
 		echo "-<br>"
 	fi
 	echo "   $req<br></p>"
+	echo "</div>"
 	echo -e "\n"
 #	echo "<p>------------------------------------</p>"
 done
@@ -54,6 +60,7 @@ done
 
 # Here happens the magic
 cp $DIR/html_template.html /var/www/html/gw2/dailies.html
+echo "<h1>Dailies am $today</h1>"
 echo "<div id="pve"><h1>PvE:</h1>"
 getID $TMPPVE
 getInfo

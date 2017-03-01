@@ -1,8 +1,12 @@
-p,h1 {
+#name, h1, #description {
      font-family: "Menomonia";
 }
 
-p {
-     margin-top: 15pt;
+#description, #name {
      margin-left:60pt;
+}
+
+#description{
+     margin-top: -10pt;
+     font-style: italic;
 }
