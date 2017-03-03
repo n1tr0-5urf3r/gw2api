@@ -11,6 +11,7 @@ DIR=/opt/gw2api
 TMPPVE=$DIR/pve.tmp
 TMPPVP=$DIR/pvp.tmp
 TMPWVW=$DIR/wvw.tmp
+TMPFRACTALS=$DIR/fractals.tmp
 TMPID=$DIR/ids.tmp
 TMPINFO=$DIR/info.tmp
 today=$(date +%d.%m.%Y)
@@ -19,6 +20,7 @@ today=$(date +%d.%m.%Y)
 curl -s https://api.guildwars2.com/v2/achievements/daily | jq .pve > $TMPPVE
 curl -s https://api.guildwars2.com/v2/achievements/daily | jq .pvp > $TMPPVP
 curl -s https://api.guildwars2.com/v2/achievements/daily | jq .wvw > $TMPWVW
+curl -s https://api.guildwars2.com/v2/achievements/daily | jq .fractals > $TMPFRACTALS
 
 getID(){
 cat $1 | grep id | egrep -o "[0-9]{1,4}" | sed 's/ /\n/g' > $TMPID
@@ -71,6 +73,10 @@ getInfo
 echo "</div>"
 echo "<div id="wvw"><h1>WvW:</h1>"
 getID $TMPWVW
+getInfo
+echo "</div>"
+echo "<div id="fractals"><h1>Fractals:</h1>"
+getID $TMPFRACTALS
 getInfo
 echo "</div>"
 
